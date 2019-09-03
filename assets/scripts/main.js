@@ -2,6 +2,7 @@ $(function () {
     let $form = $("#pass-generate-form");
     let $passInput = $("#plain-password");
     let $encPassText = $("#encryptedpass-text");
+    let $encPassContainer = $('[data-js="ec_pass_cont"]');
 
 
     initializeToast(".main-container");
@@ -25,7 +26,7 @@ $(function () {
                                 .addClass("generated");
 
                     copyToClipboard(response.hash);
-                    showToastMessage("Copied to clipboard");
+                    showToastMessage("Copied to clipboard!");
                 }
             }
         });
@@ -33,7 +34,12 @@ $(function () {
 
     });
 
-
+    $encPassContainer.on("click", function(){
+        if($encPassText.data('generated')){   
+            copyToClipboard($encPassText.text());
+            showToastMessage("Copied to clipboard!");
+        }
+    });
 
 
 
@@ -116,8 +122,13 @@ function showToastMessage(message, timeout = 3)
     $("#toast-message-container").append(toast);
 
     setTimeout(() => {
-        toast.removeClass("toast-slide-up")
-             .addClass("toast-slide-down").delay(1000).remove();
+        let toastOld = toast;
+        toastOld.removeClass("toast-slide-up")
+             .addClass("toast-slide-down")
+
+             setTimeout(() => {
+                toastOld.remove();
+             }, 1000 * 1);
     }, timeout* 1000);
 }
 

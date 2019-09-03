@@ -62,6 +62,8 @@ body{
     justify-content: center;
     align-items: center;
     background: black url(../img/bg.jpg) no-repeat center center / cover ;
+
+    flex-direction: column;
 }
 .main-container:before{
     content:"";
@@ -91,6 +93,7 @@ body{
     color: white;
     letter-spacing: 0.5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+    border-radius: 8px;
 
     transition: background .5s ease;
 }
@@ -102,6 +105,21 @@ body{
     background: #F44336;
 }
 
+.heading-container{
+    padding: 20px;
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 300;
+    flex: 1 auto;
+    flex-basis: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.form-container{
+    flex: 1 auto;
+    flex-basis: 80%;
+}
 
 .myform{
     width: 500px;
@@ -135,7 +153,15 @@ body{
 #plain-password{
     padding: 5px 8px;
     box-sizing: border-box;
+    background: rgba(255, 255, 255, .2);
+
+    transition: background .5s ease;
 }
+
+#plain-password:focus{
+    background: rgba(255, 255, 255, .3);
+}
+
 
 .field-container{
     margin: 20px 0;
@@ -149,6 +175,9 @@ body{
 .plain-password-container{
     display: flex;
     align-items: center;
+}
+.plain-password-container label{
+    flex-basis: 20%;
 }
 
 .plain-password-container > *{
@@ -185,8 +214,8 @@ body{
 
 @media screen and (max-width: 500px) {
     .myform {
-        padding: 2rem 2rem;
-        width:100%;
+        padding: 2rem 1.5rem;
+        width:90%;
     }
 
     .field-container{
