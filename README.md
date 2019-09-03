@@ -1,3 +1,3 @@
-# php_pass_generator
+# PHP Password Generator
 
 Convert string to Bcrypt password (hashed)
