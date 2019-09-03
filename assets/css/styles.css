@@ -1,0 +1,205 @@
+.width-full{
+    width: 100vw;
+}
+
+.height-full{
+    height: 100vh;
+}
+
+.overflow-hidden{
+    overflow: hidden;
+}
+
+.position-relative{
+    position: relative;
+}
+
+.position-absolute{
+    position: absolute;
+}
+
+.fadeable{
+    opacity: 1;
+    transition: opacity .5s ease;
+}
+
+.fade-in{
+    opacity: 1;
+}
+.fade-out{
+    opacity: 0;
+}
+
+.display-ib{
+    display: inline-block;
+}
+
+.muted{
+    color: rgba(0,0,0,0.5);
+}
+.muted-invert{
+    color: rgba(255,255,255,0.5);
+}
+.fw-light{
+    font-weight: 300;
+}
+
+.hide{
+    display:none;
+}
+
+
+
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.main-container{
+    min-height: 100vh;
+    min-width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black url(../img/bg.jpg) no-repeat center center / cover ;
+}
+.main-container:before{
+    content:"";
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 300px 0px black inset;
+}
+
+
+
+.input{
+    background: rgba(255, 255, 255, .3);
+    border: 0;
+    border-radius: 5px;
+    color: white;
+}
+
+.btn{
+    background: #2196f3;
+    border: 0;
+    outline: 0;
+    padding: 10px 30px;
+    color: white;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+
+    transition: background .5s ease;
+}
+.btn.red:hover{
+    background: #d62a1d;
+}
+
+.red{
+    background: #F44336;
+}
+
+
+.myform{
+    width: 500px;
+    box-sizing: border-box;
+    padding: 2rem 3rem;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+}
+
+.myform .blur{
+    background: black url(../img/bg.jpg) no-repeat center center fixed;
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    z-index: 5;
+    filter: blur(20px) contrast(0.8);
+}
+
+.myform .content-container{
+    position: relative;
+    z-index: 10;
+}
+
+#plain-password{
+    padding: 5px 8px;
+    box-sizing: border-box;
+}
+
+.field-container{
+    margin: 20px 0;
+}
+
+.field-container label{
+    margin-right: 10px;
+}
+
+
+.plain-password-container{
+    display: flex;
+    align-items: center;
+}
+
+.plain-password-container > *{
+    flex: 1 auto;
+}
+
+.encrypted-password-container{
+    margin-top: 50px;
+}
+
+.encrypted-password-container.generated{
+    cursor: pointer;
+}
+
+
+.encryptedpass-text{
+    margin-top: 10px; 
+    width:100%;
+    overflow-wrap: break-word;
+}
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 500px) {
+    .myform {
+        padding: 2rem 2rem;
+        width:100%;
+    }
+
+    .field-container{
+        display: block;
+    }
+    .field-container > *{
+        width: 100%;
+        margin:10px 0;
+    }
+
+
+    .generate-btn{
+        width:100%;
+        float: none;
+    }
+  }
