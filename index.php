@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>PHP Password Generator</title>
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="password/assets/css/reset.css">
+    <link rel="stylesheet" href="password/assets/css/styles.css">
     
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet">
 <body>
@@ -44,6 +44,6 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
 
-    <script src="assets/scripts/main.js"></script>
+    <script src="password/assets/scripts/main.js"></script>
 </body>
 </html>
