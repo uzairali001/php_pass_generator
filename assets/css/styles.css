@@ -1,234 +1,274 @@
-.width-full{
-    width: 100vw;
+select {
+  appearance: base-select;
+
+   option {
+    padding-block: 5px;
+  }
 }
 
-.height-full{
-    height: 100vh;
+::picker(select) {
+  appearance: base-select;
+
+  border: 0;
+
+  background: #ffffff4d;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid #ffffff45;
+  box-shadow: 1px 3px 5px #00000039;
+
 }
 
-.overflow-hidden{
-    overflow: hidden;
+.width-full {
+  width: 100vw;
 }
 
-.position-relative{
-    position: relative;
+.height-full {
+  height: 100vh;
 }
 
-.position-absolute{
-    position: absolute;
+.overflow-hidden {
+  overflow: hidden;
 }
 
-.fadeable{
-    opacity: 1;
-    transition: opacity .5s ease;
+.position-relative {
+  position: relative;
 }
 
-.fade-in{
-    opacity: 1;
+.position-absolute {
+  position: absolute;
 }
-.fade-out{
+
+.fadeable {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.fade-in {
+  opacity: 1;
+}
+.fade-out {
+  opacity: 0;
+}
+
+.display-ib {
+  display: inline-block;
+}
+
+.muted {
+  color: rgba(0, 0, 0, 0.5);
+}
+.muted-invert {
+  color: rgba(255, 255, 255, 0.5);
+}
+.fw-light {
+  font-weight: 300;
+}
+
+.hide {
+  display: none;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+.main-container {
+  min-height: 100vh;
+  min-width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black url(../img/bg.jpg) no-repeat center center / cover;
+
+  flex-direction: column;
+}
+.main-container:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 300px 0px black inset;
+}
+
+
+.btn {
+  background: #2196f3;
+  border: 0;
+  outline: 0;
+  padding: 10px 30px;
+  color: white;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+
+  transition: background 0.5s ease;
+}
+.btn.red:hover {
+  background: #d62a1d;
+}
+
+.red {
+  background: #f44336;
+}
+
+.heading-container {
+  padding: 20px;
+  font-size: 2.5rem;
+  color: white;
+  font-weight: 300;
+  flex: 1 auto;
+  flex-basis: 20%;
+  display: flex;
+  align-items: center;
+}
+
+.form-container {
+  flex: 1 auto;
+  flex-basis: 80%;
+}
+
+.myform {
+  width: 600px;
+  box-sizing: border-box;
+  padding: 1.5em 2em;
+  z-index: 10;
+  color: white;
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.myform .content-container {
+  position: relative;
+  z-index: 10;
+}
+
+.select-field,
+.input-field {
+  padding: 8px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.2);
+  border: 0;
+  border-radius: 5px;
+  color: white;
+
+  transition: background 0.5s ease;
+
+
+  &:focus {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+
+.field-container {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-container label {
+  margin-right: 10px;
+}
+
+.encrypted-password-container {
+  margin-top: 50px;
+}
+
+.encrypted-password-container.generated {
+  cursor: pointer;
+}
+
+.encryptedpass-text {
+  width: 100%;
+  overflow-wrap: break-word;
+  font-family: monospace;
+  background: #0000000f;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toast-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.toast-message {
+  position: absolute;
+  background: rgba(0, 0, 0, .5);
+  color: white;
+  bottom: 0px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: opacity 400ms ease, transform 400ms ease, scale 400ms ease;
+
+  opacity: 1;
+  transform: translateY(-200%);
+
+  &.toast-message--closing {
     opacity: 0;
+    scale: 0
+  }
+
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(100%);
+  }
 }
 
-.display-ib{
-    display: inline-block;
+.toast-message--show {
+
 }
-
-.muted{
-    color: rgba(0,0,0,0.5);
-}
-.muted-invert{
-    color: rgba(255,255,255,0.5);
-}
-.fw-light{
-    font-weight: 300;
-}
-
-.hide{
-    display:none;
-}
-
-
-
-body{
-    font-family: 'Open Sans', sans-serif;
-}
-
-.main-container{
-    min-height: 100vh;
-    min-width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: black url(../img/bg.jpg) no-repeat center center / cover ;
-
-    flex-direction: column;
-}
-.main-container:before{
-    content:"";
-    position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 300px 0px black inset;
-}
-
-
-
-.input{
-    background: rgba(255, 255, 255, .3);
-    border: 0;
-    border-radius: 5px;
-    color: white;
-}
-
-.btn{
-    background: #2196f3;
-    border: 0;
-    outline: 0;
-    padding: 10px 30px;
-    color: white;
-    letter-spacing: 0.5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
-    border-radius: 8px;
-
-    transition: background .5s ease;
-}
-.btn.red:hover{
-    background: #d62a1d;
-}
-
-.red{
-    background: #F44336;
-}
-
-.heading-container{
-    padding: 20px;
-    font-size: 2.5rem;
-    color: white;
-    font-weight: 300;
-    flex: 1 auto;
-    flex-basis: 20%;
-    display: flex;
-    align-items: center;
-}
-
-.form-container{
-    flex: 1 auto;
-    flex-basis: 80%;
-}
-
-.myform{
-    width: 500px;
-    box-sizing: border-box;
-    padding: 2rem 3rem;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.2);
-    color: white;
-    border-radius: 15px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-}
-
-.myform .blur{
-    background: black url(../img/bg.jpg) no-repeat center center fixed;
-    position: absolute;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    z-index: 5;
-    filter: blur(20px) contrast(0.8);
-}
-
-.myform .content-container{
-    position: relative;
-    z-index: 10;
-}
-
-#plain-password{
-    padding: 5px 8px;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, .2);
-
-    transition: background .5s ease;
-}
-
-#plain-password:focus{
-    background: rgba(255, 255, 255, .3);
-}
-
-
-.field-container{
-    margin: 20px 0;
-}
-
-.field-container label{
-    margin-right: 10px;
-}
-
-
-.plain-password-container{
-    display: flex;
-    align-items: center;
-}
-.plain-password-container label{
-    flex-basis: 20%;
-}
-
-.plain-password-container > *{
-    flex: 1 auto;
-}
-
-.encrypted-password-container{
-    margin-top: 50px;
-}
-
-.encrypted-password-container.generated{
-    cursor: pointer;
-}
-
-
-.encryptedpass-text{
-    margin-top: 10px; 
-    width:100%;
-    overflow-wrap: break-word;
-}
-
-.button-container{
-    display: flex;
-    justify-content: flex-end;
-}
-
-
-
-
-
 
 
 
 
 @media screen and (max-width: 500px) {
-    .myform {
-        padding: 2rem 1.5rem;
-        width:90%;
-    }
-
-    .field-container{
-        display: block;
-    }
-    .field-container > *{
-        width: 100%;
-        margin:10px 0;
-    }
-
-
-    .generate-btn{
-        width:100%;
-        float: none;
-    }
+  .myform {
+    padding: 2rem 1.5rem;
+    width: 90%;
   }
+
+  .field-container {
+    display: block;
+  }
+  .field-container > * {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .generate-btn {
+    width: 100%;
+    float: none;
+  }
+}
+
+
+
+
