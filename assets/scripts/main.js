@@ -1,147 +1,103 @@
-$(function () {
-    let $form = $("#pass-generate-form");
-    let $passInput = $("#plain-password");
-    let $encPassText = $("#encryptedpass-text");
-    let $encPassContainer = $('[data-js="ec_pass_cont"]');
+const toastContainer = document.querySelector(".toast-container");
+
+const form = document.getElementById("form");
+const encPassText = document.getElementById("encryptedpass-text");
+const encPassContainer = document.querySelector('[data-js="ec_pass_cont"]');
 
 
-    initializeToast(".main-container");
+// Add event listener for form submission
+form.addEventListener("submit", async (event) => {
+  event.preventDefault(); // Prevent default form submission
 
+  
+  try {
+    const formData = new FormData(form);
+    for (const [name, value] of formData.entries()) {
+      console.log(`${name}: ${value}`);
+    }
 
-    $form.on("submit", function (event) {
-        event.preventDefault();
-
-        $.ajax({
-            type: "post",
-            url: $form.attr("action"),
-            data: {"plain_pass": $passInput.val()},
-            dataType: "JSON",
-            success: function (response) {
-                if(response && response.hash)
-                {
-                    $encPassText.removeClass('muted-invert')
-                                .text(response.hash)
-                                .data("generated", "true")
-                                .parent()
-                                .addClass("generated");
-
-                    copyToClipboard(response.hash);
-                    showToastMessage("Copied to clipboard!");
-                }
-            }
-        });
-        
-
+    // Use the Fetch API for AJAX request
+    const response = await fetch(form.action, {
+      method: "POST", // Specify POST method
+      body: formData
     });
 
-    $encPassContainer.on("click", function(){
-        if($encPassText.data('generated')){   
-            copyToClipboard($encPassText.text());
-            showToastMessage("Copied to clipboard!");
-        }
-    });
+    // Check if the HTTP response was successful
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
+    const data = await response.json(); // Parse the JSON response
 
+    // Process the successful response
+    if (data && data.hash) {
+      encPassText.classList.remove("muted-invert"); // Remove class
+      encPassText.textContent = data.hash;          // Set text content
+      encPassText.dataset.generated = "true";       // Set data attribute
+      encPassText.parentElement.classList.add("generated"); // Add class to parent
 
-
+      await copyToClipboard(data.hash); // Copy to clipboard (await to ensure completion)
+      showToastMessage("Copied to clipboard!"); // Show toast message
+    } else {
+      // Handle cases where response is not as expected
+      console.error("Invalid response format:", data);
+      showToastMessage("Error: Invalid response from server.", 4);
+    }
+  } catch (error) {
+    // Catch and log any errors during the fetch operation
+    console.error("Fetch error:", error);
+    showToastMessage(`Error generating password: ${error.message}`, 5);
+  }
 });
 
+encPassContainer.addEventListener("click", async () => {
+  // Check the data attribute directly
+  if (encPassText.dataset.generated === "true") {
+    await copyToClipboard(encPassText.textContent); // Copy text content
+    showToastMessage("Copied to clipboard!");
+  }
+});
 
-function initializeToast(selector = "")
-{
-    if($("#toast-message-container").length > 0){
-        return;
-    }    
+function showToastMessage(message, timeout = 2) {
+  if (empty(message)) {
+    return;
+  }
 
-    let css =
-    `<style>
-        #toast-message-container{
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;          
-        }
-        #toast-message-container .toast-message-text-container{
-            position: absolute;
-            background: rgba(0, 0, 0, .5);
-            color: white;
-            bottom: 0px;
-            padding: 10px 15px;
-            border-radius: 5px;
-        }
-        #toast-message-container .toast-message-text-container.toast-slide-up{
-            animation: toast-slide-up .5s ease forwards;
-        }
-        #toast-message-container .toast-message-text-container.toast-slide-down{
-            animation: toast-slide-down .5s ease forwards;
-        }
+  const toastMessage = getToastMessageElement(message);
+  toastContainer.appendChild(toastMessage);
 
-        @keyframes toast-slide-up {
-            0% {
-                opacity: 0;
-                transform: translateY(100%);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(-200%);
-            }
-        }
-
-        @keyframes toast-slide-down {
-            0% {
-                opacity: 1;
-                transform: translateY(-200%);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(100%);
-            }
-        }
-    </style>`;
-
-    let html = 
-    `<div id="toast-message-container">   
-    </div>`;
-
-    $("head").append(css);
-
-    let appendTo = empty(selector) ? "body" : selector;
-    $(appendTo).append(html);
-}
-
-function showToastMessage(message, timeout = 3)
-{
-    if(empty(message)){
-        return;
-    }
-    let toast = $(`<div class="toast-message-text-container toast-slide-up"><p class="toast-message-text">${message}</p></div>`);
-    
-    $("#toast-message-container").append(toast);
+  setTimeout(() => {
+    toastMessage.classList.add("toast-message--closing");
 
     setTimeout(() => {
-        let toastOld = toast;
-        toastOld.removeClass("toast-slide-up")
-             .addClass("toast-slide-down")
-
-             setTimeout(() => {
-                toastOld.remove();
-             }, 1000 * 1);
-    }, timeout* 1000);
+      toastMessage.remove();
+    }, 500);
+  }, timeout * 1000);
 }
 
+function getToastMessageElement(message) {
+  const article = document.createElement("article");
+  article.classList.add("toast-message");
 
-function copyToClipboard(text) {
-    var $temp = $("<input>");
-    $("body").append($temp);
-    $temp.val(text).select();
-    document.execCommand("copy");
-    $temp.remove();
+  const p = document.createElement("p");
+  p.classList.add("toast-message-text");
+  p.textContent = message;
+
+  article.appendChild(p);
+
+  return article;
 }
 
+async function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+}
 
-function empty(n){
-	return !(!!n ? typeof n === 'object' ? Array.isArray(n) ? !!n.length : !!Object.keys(n).length : true : false);
+function empty(n) {
+  return !(!!n
+    ? typeof n === "object"
+      ? Array.isArray(n)
+        ? !!n.length
+        : !!Object.keys(n).length
+      : true
+    : false);
 }
